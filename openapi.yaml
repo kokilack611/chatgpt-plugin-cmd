@@ -1,0 +1,44 @@
+openapi: 3.0.1
+info:
+  title: CMD Plugin
+  description: A plugin that allows the user to execute windows commands".
+  version: 'v1'
+servers:
+  - url: http://localhost:5003
+paths:
+  /spawn:
+    post:
+      operationId: spawnCMD
+      summary: Spawn a cmd shell
+      responses:
+        "200":
+          description: OK
+  /run:
+    post:
+      operationId: runCMD
+      summary: Run a command in the spawned shell
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cmdRequest'
+      responses:
+        "200":
+          description: OK
+  /exit:
+    post:
+      operationId: exitCMD
+      summary: Exit from the shell
+      responses:
+        "200":
+          description: OK
+
+components:
+  schemas:
+    cmdRequest:
+      type: object
+      properties:
+        command:
+          type: string
+          description: The command to execute.
